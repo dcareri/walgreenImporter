@@ -1,0 +1,44 @@
+{
+"Messages":[
+	{"id":"IF2016_INITIAL_A",
+	"priority":"1",
+	"messageType":"alert",
+	"messageSubtype":"alert",
+	"messageText":"Visit the nearby Walgreens at %1 to see the new Infusion products",
+	"senderLogo" : "http://static.shopadvisor.com/images/vince-camuto.jpg",
+	"replacementParameters":[],
+	"actionTarget":"https://wwwdev.shopadvisor.com/c/ug866248faa31f611b/shop-mens-health/",
+	"targetId":"collection:ug866248faa31f611b"
+	},
+	
+	{"id":"IF2016_INITIAL_M",
+	"priority":"1",
+	"validityTime":"24",
+	"messageType":"message",
+	"messageText":"Visit the nearby Walgreens at %1 to see the new Infusion products",
+	"replacementParameters":[],
+	"actionTarget":"https://wwwdev.shopadvisor.com/c/ug866248faa31f611b/shop-mens-health/",
+	"targetId":"collection:ug866248faa31f611b"
+	},
+	
+	{"id":"IF2016_REMINDER_A",
+	"priority":"1",
+	"messageType":"alert",
+	"messageSubtype":"alert",
+	"messageText":"Do not forget to visit Walgreens at %1 to see the new Infusion products",
+	"replacementParameters":[],
+	"actionTarget":"https://wwwdev.shopadvisor.com/c/ug866248faa31f611b/shop-mens-health/",
+	"targetId":"collection:ug866248faa31f611b"
+	},
+	
+	{"id":"IF2016_REMINDER_M",
+	"priority":"1",
+	"validityTime":"24",
+	"messageType":"message",
+	"messageText":"Do not forget to visit Walgreens at %1 to see the new Infusion products",
+	"replacementParameters":[],
+	"actionTarget":"https://wwwdev.shopadvisor.com/c/ug866248faa31f611b/shop-mens-health/",
+	"targetId":"collection:ug866248faa31f611b"
+	}
+		]
+}

@@ -1,0 +1,151 @@
+{
+"operationalRules":[ 
+	{
+	"eventRules": [
+		{
+			"ruleID": "IF2016_IGNORE_EXIT_RULE",
+			"comment": "Ignore region exit events, we only care about entry events",
+			"oneTimeExecutionFlag": "false",
+			"conditionalBlock": {
+				"logicalOperator": "and",
+				"conditions": [
+					{
+						"statement": "checkEventAction",
+						"parameters": {"category": "exit"}
+					}
+				]
+			},
+			"operations": [
+				{
+					"action": "exit",
+					"parameters": {}
+				}
+			]
+		},
+	
+		{
+			"ruleID": "IF2015_FIRST_TIME_IN_DRIVE_TO_STORE_RULE",
+			"comment": "The drive to store GF has been triggered for the first time",
+			"comment": "Send the inital msgs and start the campaign",
+			"oneTimeExecutionFlag": "true",
+			"conditionalBlock": {
+				"logicalOperator": "and",
+				"conditions": [
+					{
+						"statement": "checkEventType",
+						"parameters": {"eventType": "driveToStore"}
+					},
+					{
+						"statement": "checkCampaignStatus",
+						"parameters": {"status": "notStarted"}
+					}
+				]
+			},
+			"operations": [
+				{
+					"action": "markCampaignStatus",
+					"parameters": {"status": "started"}
+				},
+				{
+					"action": "sendMessage",
+					"parameters": {"messageType":"alert", "id":"IF2016_INITIAL_A"}
+				},
+				{
+					"action": "sendMessage",
+					"parameters": {"messageType":"message", "id":"IF2016_INITIAL_M"}
+				},
+				{
+					"action": "exit",
+					"parameters": {}
+				}
+			]
+		},
+
+		{
+			"ruleID": "IF2016_SECOND_TIME_IN_DRIVE_TO_STORE_RULE",
+			"comment": "The drive to store GF has been triggered a second time and they have not yet visited the store",
+			"comment": "Send them the reminder messages",
+			"comment": "these are the last messages we will send",
+			"oneTimeExecutionFlag": "true",
+			"conditionalBlock": {
+				"logicalOperator": "and",
+				"conditions": [
+					{
+						"statement": "checkEventType",
+						"parameters": {"eventType":"driveToStore"}
+					},
+					{
+						"statement": "checkCampaignStatus",
+						"parameters": {"status": "started"}
+					}
+				]		
+			},
+			"operations": [
+				{
+					"action": "sendMessage",
+					"parameters": {"messageType":"alert", "id":"IF2016_REMINDER_A"}
+				},
+				{
+					"action": "sendMessage",
+					"parameters": {"messageType":"message", "id":"IF2016_REMINDER_M"}
+				},
+				{
+					"action": "exit",
+					"parameters": {}
+				}
+			]
+		},
+
+		{
+			"ruleID": "IF2016_SUBSEQUENT_TIME_IN_DRIVE_TO_STORE_RULE",
+			"comment": "The drive to store geofence has entered the large geofence for a third time",
+			"comment": "we will not send any more messages",
+			"comment": "we will leave them in the campaign in the hope they enter the store sometime in the future",
+			"oneTimeExecutionFlag": "false",
+			"conditionalBlock": {
+				"logicalOperator": "and",
+				"conditions": [
+					{
+						"statement": "checkEventType",
+						"parameters": {"eventType":"driveToStore"}
+					}
+				]		
+			},
+			"operations": [
+				{
+					"action": "exit",
+					"parameters": {}
+				}
+			]
+		},
+
+		{
+			"ruleID": "IF2016_ENTERING_THE_STORE",
+			"comment": "User is visting the store",
+			"comment": "Mark the campaign as successfully completed",
+			"oneTimeExecutionFlag": "false",
+			"conditionalBlock": {
+				"logicalOperator": "and",
+				"conditions": [
+					{
+						"statement": "checkEventType",
+						"parameters": {"eventType": "StoreEntry"}
+					}
+				]		
+			},
+			"operations": [
+				{
+					"action": "markCampaignStatus",
+					"parameters": {"status": "completed"}
+				},
+				{
+					"action": "exit",
+					"parameters": {}
+				}
+			]
+		}
+	]
+	}
+	]
+}
+
